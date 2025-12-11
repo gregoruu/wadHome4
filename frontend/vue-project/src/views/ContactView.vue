@@ -1,8 +1,19 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="contact">
+    <h1>This is a contact page</h1>
   </div>
 </template>
+
+<script>
+  export default {
+    name: "contact",
+    data() {
+      return;
+    },
+    methods : {},
+    mounted : {}, 
+  };
+</script>
 
 <style>
 @media (min-width: 1024px) {
