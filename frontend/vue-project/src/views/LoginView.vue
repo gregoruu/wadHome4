@@ -1,8 +1,8 @@
 <template>
-  <div class="login">
+  <div class="container">
     <main class="post-container">
       <div class="post" id="login-container">
-        <form @submit.prevent="passwordIsValid">
+        <form> <!-- @submit.prevent="passwordIsValid">-->
           <div id="text-input-rows">
             <div class="input-row">
               <label>Email</label>
@@ -13,8 +13,12 @@
               <input type="password" placeholder="Password" name="password" v-model="password" required/>
             </div>
           </div>
-          <p class="error" v-if="!passwordIsValid() && password !== ''">The password is not valid:<br>{{ missingRequirementsText }}</p>
-          <input id="sign-up-button" class="morph-button-small" type="submit" value="Sign Up"/>
+          <!-- <p class="error" v-if="!passwordIsValid() && password !== ''">The password is not valid:<br>{{ missingRequirementsText }}</p> -->
+          <div class="buttons-container">
+          <button @click="LogIn">Login</button>
+          <p class="center">Or</p>
+          <button @click='this.$router.push("/signup")'>Signup</button>
+          </div>
         </form>
       </div>
     </main>
@@ -23,14 +27,52 @@
 
 <script>
     export default {
-    name: 'login',
+    name: 'LogIn',
     components: {
     },
-    data: () => {
-        return {
-        password: "",
-        };
+    data: function() {
+    return {
+   email: '',
+   password: '',
+  }
+  },
+  methods: {
+      
+    /*
+        passwordIsValid() {
+        if (this.missingRequirements.length === 0) {
+            return true;
+        }
+        },
+      */
+
+LogIn() {
+      var data = {
+        email: this.email,
+        password: this.password
+      };
+      // using Fetch - post method - send an HTTP post request to the specified URI with the defined body
+      fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+          credentials: 'include', //  Don't forget to specify this if you need cookies
+          body: JSON.stringify(data),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+      console.log(data);
+      //this.$router.push("/");
+      location.assign("/");
+      })
+      .catch((e) => {
+        console.log(e);
+        console.log("error");
+      });
     },
+  },
+  /* 
     computed: {
         missingRequirements: function () {
         const reqs = [];
@@ -68,12 +110,58 @@
         return result;
         }
     },
-    methods: {
-        passwordIsValid() {
-        if (this.missingRequirements.length === 0) {
-            return true;
-        }
-        }
-    },
+      */
     }
 </script>
+
+<style scoped>
+main {
+  margin-bottom: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+}
+
+#text-input-rows {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+
+.input-row {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: right;
+  font-size: 1.5rem;
+}
+
+.input-row > label, .input-row input {
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 20px;
+  border: 0;
+}
+
+label {
+  padding-right: 1rem;
+}
+
+input {
+  padding: 0.25rem;
+}
+
+p {
+  white-space: pre-line;
+  line-height: 1.5rem;
+  margin-bottom: 0;
+}
+
+</style>

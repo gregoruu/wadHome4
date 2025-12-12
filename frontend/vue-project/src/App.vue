@@ -1,85 +1,374 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/contacts">Contacts</RouterLink>
-        <RouterLink to="/login">login</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <Header />
+  <router-view />
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<script>
+import Header from './components/Header.vue';
+export default {
+  components: {
+    Header,
+  }
+}
+</script>
+
+
+
+<style>
+:root {
+  --light-color: #deefff;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.chocolate-classical-sans-regular {
+  font-family: "Chocolate Classical Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+* {
+  font-family: "Chocolate Classical Sans", sans-serif;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
+.center {
+  margin: auto;
   border: 0;
+  padding: 10px 20px;
+  margin-top: 20px;
+  width: 30%; 
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+.buttons-container {
+  display: flex;
+  justify-content: center;
+} 
+
+
+.view-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: linear-gradient(to top, rgb(87, 50, 66) 0%, rgb(77, 105, 136) 100%) fixed;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+.morphContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  min-width: 200px;
+  margin: 2rem;
+  gap: 1.5rem;
+
+  border-radius: 1rem;
+  background: #4D6988;
+  box-shadow: 0.5rem 0.5rem 1rem #2e3f52, -0.5rem -0.5rem 1rem #6c93be;
+}
+
+/*Child Selector */
+nav > h1 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+nav h1 > a, .morphButton {
+  color: var(--light-color);
+  text-decoration: none;
+  text-align: center;
+  padding: 0.5rem;
+  text-wrap: nowrap;
+  transition: all 0.1s ease-in-out;
+  border: 1px solid transparent;
+  user-select: none;
+  width: min-content;
+
+  border-radius: 1rem;
+  background: #4D6988;
+  box-shadow: 0.25rem 0.25rem 0.25rem #2e3f52, -0.25rem -0.25rem 0.5rem #6c93be;
+}
+
+nav h1 > a:hover, .morphButton:hover {
+  border: 1px solid #a0b5c9;
+}
+
+nav h1 > a:active, .morphButton:active {
+  box-shadow: inset 0.25rem 0.25rem 1rem #2e3f52, -0.25rem -0.25rem 1rem #6c93be;
+}
+
+.morph-button-small {
+  color: var(--light-color);
+  text-decoration: none;
+  text-align: center;
+  padding: 0.5rem;
+  text-wrap: nowrap;
+  transition: all 0.1s ease-in-out;
+  border: 1px solid transparent;
+  user-select: none;
+  width: min-content;
+
+  border-radius: 1rem;
+  background: #466a8f;
+  box-shadow: 0.25rem 0.25rem 0.5rem #838383, -0.25rem -0.25rem 0.25rem #dadada;
+}
+
+.morph-button-small:hover {
+  border: 1px solid #a0b5c9;
+}
+
+.morph-button-small:active {
+  background: #466a8f;
+  box-shadow: 0.25rem 0.25rem 0.5rem #838383, -0.25rem -0.25rem 0.25rem #dadada;
+}
+
+svg.element-separator {
+  width: 0.125rem;
+  height: 2rem;
+  padding: 0.25rem;
+}
+
+@media (max-width: 420px) {
+  svg.element-separator {
+    display: none;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  nav > h1 {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
+    min-width: min-content;
   }
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.profile {
+  width: 64px;
+  height: 64px;
+  margin: 0.25rem;
+  background-color: #aaaaaa;
+  border-radius: 50%;
+  border: 2px solid #333333;
+  box-shadow: #7a7a7a 0 1px 5px;
+  transition: 100ms ease-in-out;
+  object-fit: cover;
+}
+
+.profile:hover {
+  box-shadow: #8a8a8a 0 2px 6px;
+  border: 2px solid #484848;
+}
+
+#profileSection {
+  position: relative;
+}
+
+#profileDropdown {
+  display: none;
+}
+
+#profileDropdown.open {
+  max-width: 70vw;
+  position: absolute;
+  top: calc(100% + 2rem);
+  right: -1rem;
+  display: flex;
+  flex-direction: column;
+
+  color: #deefff;
+  text-decoration: none;
+  padding: 1rem;
+  text-wrap: nowrap;
+  transition: all 0.1s ease-in-out;
+  border: 1px solid transparent;
+
+  border-radius: 1rem;
+  background: #4D6988;
+  box-shadow: 0.25rem 0.25rem 0.25rem #2e3f52, -0.25rem -0.25rem 0.5rem #6c93be;
+}
+
+#profileDropdown > .morphButton {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.post {
+  background: #e9e9e9;
+  border-radius: 1rem;
+  box-shadow: 0 1px 5px rgb(0, 0, 0);
+  padding: 20px;
+  width: 400px;
+  margin: auto;
+}
+
+@media (max-width: 500px) {
+  .post {
+    width: 80%;
+    min-width: 150px;
+  }
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.post-date {
+  color: #2c2c2c;
+  font-size: 1em;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: transform 0.2s ease-in;
+}
+
+/*pseudo-class*/
+.post-image:hover {
+  transform: scale(1.03);
+}
+
+/*class selector*/
+.post-text {
+  margin-top: 0;
+  color: #333;
+  font-size: 1em;
+}
+
+
+button {
+  background-color: blue;
+  border: none;
+  border-radius: 0;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+}
+
+#login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#login-container > h2 {
+  padding: 0.25rem;
+  text-wrap: wrap;
+  align-items: center;
+  text-align: center;
+}
+
+/*General Sibling Selector */
+#login-container form ~ h2 {
+  margin-top: 0.25rem;
+  font-size: 1.25rem;
+}
+
+#login-container a {
+  text-decoration: none;
+  text-align: center;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90%;
+  padding: 0.5rem;
+}
+
+#login-form label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+#login-form input {
+  font-size: 1rem;
+  min-width: 50%;
+  margin: 0.25rem;
+  padding: 0.5rem;
+  max-width: 80%;
+}
+
+.split-div {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.left-div {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  align-items: end;
+  padding-right: 10px;
+}
+
+/*Descendant Selector */
+.left-div p {
+  color: gray;
+}
+
+.right-div {
+  display: flex;
+  width: 60%;
+}
+
+#text-area {
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  min-height: 100px;
+}
+
+/*ID selector */
+#button-file {
+  background-color: gray;
+}
+
+/*Adjacent Sibling Selector */
+.split-div + .submit-post {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.error {
+  color: darkred;
+}
+
+button {
+  font-size: 1rem;
+  padding: 0.5rem;
+  margin-top: 1rem;
+  border-radius: 20px;
 }
 </style>
