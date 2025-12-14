@@ -24,7 +24,6 @@ const execute = async(query) => {
 const createPostTblQuery = `
     CREATE TABLE IF NOT EXISTS "posttable" (
 	    "id" SERIAL PRIMARY KEY,         
-	    "title" VARCHAR(200) NOT NULL,
 	    "body" VARCHAR(200) NOT NULL,
         "date" TIMESTAMP DEFAULT CURRENT_TIMESTAMP  
     );`;

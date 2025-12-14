@@ -21,7 +21,7 @@
   </div>
   <div class="buttons-container">
     <button class="center" @click='this.$router.push("/add")'>Add post</button>
-    <button class="center">Delete all</button>
+    <button class="center" @click="DeleteAll">Delete all</button>
   </div>
   </main>
 </template>
@@ -59,7 +59,17 @@ import Footer from '../components/Footer.vue';
         console.log("error logout");
       });
     },
-  }, 
+
+    DeleteAll() {
+      fetch("http://localhost:3000/api/posts", {
+      method: "DELETE",
+      credentials: "include"
+      })
+      .catch((e) =>{
+        console.log(e);
+      });
+    }
+  },
   mounted() {
         fetch('https://jsonplaceholder.typicode.com/posts')
         .then((response) => response.json())

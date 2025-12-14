@@ -12,7 +12,7 @@ const app = express();
 // The express.json() function is a built-in middleware function in Express. 
 // It parses incoming requests with JSON payloads and is based on body-parser.
 
-app.use(cors({ origin: 'http://localhost:8080', credentials: true }));
+app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:8080'], credentials: true }));
 
 app.use(express.json());
 app.use(cookieParser());
@@ -88,8 +88,7 @@ app.post('/auth/signup', async(req, res) => {
         res
             .status(201)
             .cookie('jwt', token, { maxAge: 6000000, httpOnly: true })
-            .json({ user_id: authUser.rows[0].id })
-            .send;
+            .json({ user_id: authUser.rows[0].id });
     } catch (err) {
         console.error(err.message);
         res.status(400).send(err.message);
@@ -122,8 +121,7 @@ app.post('/auth/login', async(req, res) => {
         res
             .status(201)
             .cookie('jwt', token, { maxAge: 6000000, httpOnly: true })
-            .json({ user_id: user.rows[0].id })
-            .send;
+            .json({ user_id: user.rows[0].id });
     } catch (error) {
         res.status(401).json({ error: error.message });
     }
@@ -131,7 +129,7 @@ app.post('/auth/login', async(req, res) => {
 
 app.get('/auth/logout', (req, res) => {
     console.log('delete jwt request arrived');
-    res.status(202).clearCookie('jwt').json({ "Msg": "cookie cleared" }).send
+    res.status(202).clearCookie('jwt').json({ "Msg": "cookie cleared" })
 });
 
 app.post('/api/posts', requireAuth, async(req, res) => {
@@ -139,10 +137,8 @@ app.post('/api/posts', requireAuth, async(req, res) => {
         console.log("a post request has arrived");
         const post = req.body;
         const newpost = await pool.query(
-            "INSERT INTO posttable(title, body, urllink) values ($1, $2, $3)    RETURNING*", [post.title, post.body, post.urllink]
-            // $1, $2, $3 are mapped to the first, second and third element of the passed array (post.title, post.body, post.urllink)
-            // The RETURNING keyword in PostgreSQL allows returning a value from the insert or update statement.
-            // using "*" after the RETURNING keyword in PostgreSQL, will return everything
+            "INSERT INTO posttable(body) VALUES ($1) RETURNING *",
+            [post.body]
         );
         res.json(newpost);
     } catch (err) {
@@ -186,7 +182,8 @@ app.put('/api/posts/:id', requireAuth, async(req, res) => {
         const post = req.body;
         console.log("update request has arrived");
         const updatepost = await pool.query(
-            "UPDATE posttable SET (title, body, urllink) = ($2, $3, $4) WHERE id = $1", [id, post.title, post.body, post.urllink]
+            "UPDATE posttable SET body = $2 WHERE id = $1",
+            [id, post.body]
         );
         res.json(updatepost);
     } catch (err) {
@@ -208,11 +205,11 @@ app.delete('/api/posts/:id', requireAuth, async(req, res) => {
     }
 });
 
-app.delete('api/posts', requireAuth, async(req, res) => {
+app.delete('/api/posts', requireAuth, async(req, res) => {
     try{
         console.log("delete all posts");
         const deleteAll = await pool.query(
-            "DELETE * FROM posttable"
+            "DELETE FROM posttable"
         );
         res.json(deleteAll);
     } catch (err) {

@@ -6,11 +6,11 @@
           <div id="text-input-rows">
             <div class="input-row">
               <label>Body</label>
-              <input type="text" placeholder="Body" name="body"/>
+              <input type="text" placeholder="Body" v-model="body" name="body"/>
             </div>
           </div>
           <div class="buttons-container">
-          <button>Add</button> <!-- change @click to add post -->
+          <button @click="AddPost">Add</button> <!-- change @click to add post -->
           </div>
       </div>
     </main>
@@ -19,7 +19,28 @@
 
 <script>
 export default {
-name: "AddPost"
+  name: "AddPost",
+  data() {
+    return {
+      body: ""
+    };
+  },
+  methods: {
+    AddPost() {
+      const postData = { body: this.body };
+      console.log(postData);
+
+      fetch("http://localhost:3000/api/posts",{
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(postData)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    }
+  }
 };
 </script>
 

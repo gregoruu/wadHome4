@@ -6,7 +6,7 @@
           <div id="text-input-rows">
             <div class="input-row">
               <label>Email</label>
-              <input type="email" placeholder="Email" name="email" required/>
+              <input type="email" placeholder="Email" v-model="email" name="email" required/>
             </div>
             <div class="input-row">
               <label for="password">Password</label>
@@ -15,9 +15,9 @@
           </div>
           <!-- <p class="error" v-if="!passwordIsValid() && password !== ''">The password is not valid:<br>{{ missingRequirementsText }}</p> -->
           <div class="buttons-container">
-          <button @click="LogIn">Login</button>
+          <button type="button" @click="LogIn">Login</button>
           <p class="center">Or</p>
-          <button @click='this.$router.push("/signup")'>Signup</button>
+          <button type="button" @click='this.$router.push("/signup")'>Signup</button>
           </div>
         </form>
       </div>
