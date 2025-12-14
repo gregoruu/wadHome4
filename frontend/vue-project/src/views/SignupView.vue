@@ -3,7 +3,7 @@
     <main class="post-container">
       <div class="post" id="login-container">
         <form @submit.prevent="passwordIsValid">
-          <div id="text-input-rows">
+          <div id="body-input">
             <div class="input-row">
               <label>Email</label>
               <input type="email" placeholder="Email" name="email" required v-model="email"/>
@@ -15,7 +15,7 @@
           </div>
           <!--<p class="error" v-if="!passwordIsValid() && password !== ''">The password is not valid:<br>{{ missingRequirementsText }}</p> -->
           <div class="buttons-container">
-          <button class="morphButton"  @click="SignUp">Signup</button>
+            <button class="morphButton" @click="SignUp">Signup</button>
           </div>
         </form>
       </div>
@@ -25,18 +25,18 @@
 
 <script>
 export default {
-name: "SignUp", 
+  name: "SignUp",
 
-data: function() {
+  data: function () {
     return {
-   email: '',
-   password: '',
-  }
+      email: '',
+      password: '',
+    }
   },
   methods: {
 
 
-SignUp() {
+    SignUp() {
       var data = {
         email: this.email,
         password: this.password
@@ -47,22 +47,22 @@ SignUp() {
         headers: {
           "Content-Type": "application/json",
         },
-          credentials: 'include', //  Don't forget to specify this if you need cookies
-          body: JSON.stringify(data),
+        credentials: 'include', //  Don't forget to specify this if you need cookies
+        body: JSON.stringify(data),
       })
-      .then((response) => response.json())
-      .then((data) => {
-      console.log(data);
-      this.$router.push("/");
-      //location.assign("/");
-      })
-      .catch((e) => {
-        console.log(e);
-        console.log("error");
-      });
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            this.$router.push("/");
+            //location.assign("/");
+          })
+          .catch((e) => {
+            console.log(e);
+            console.log("error");
+          });
     },
-  }, 
-  }
+  },
+}
 </script>
 
 <style scoped>
@@ -77,7 +77,7 @@ form {
   width: 90%;
 }
 
-#text-input-rows {
+#body-input {
   display: flex;
   flex-direction: column;
   margin-top: 1rem;

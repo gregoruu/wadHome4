@@ -1,17 +1,13 @@
 <template>
   <div class="view-container">
-    <main class="post-container">
-      <div class="post" id="login-container">
-        <h2>Add Post</h2>
-          <div id="text-input-rows">
-            <div class="input-row">
-              <label>Body</label>
-              <input type="text" placeholder="Body" v-model="body" name="body"/>
-            </div>
-          </div>
-          <div class="buttons-container">
-          <button @click="AddPost">Add</button> <!-- change @click to add post -->
-          </div>
+    <main class="post">
+      <h2>Add Post</h2>
+      <div id="body-input">
+        <label for="body">Body</label>
+        <textarea id="body" placeholder="Body" v-model="body" rows="4"></textarea>
+      </div>
+      <div class="buttons-container">
+        <button class="morphButton" @click="AddPost">Add</button>
       </div>
     </main>
   </div>
@@ -26,19 +22,26 @@ export default {
     };
   },
   methods: {
-    AddPost() {
-      const postData = { body: this.body };
-      console.log(postData);
+    async AddPost() {
+      const postData = {body: this.body};
+      try {
+        const res = await fetch("http://localhost:3000/api/posts", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          credentials: "include",
+          body: JSON.stringify(postData),
+        });
 
-      fetch("http://localhost:3000/api/posts",{
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(postData)
-      })
-      .catch((err) => {
+        if (res.status === 401) {
+          this.$router.push("/login");
+          return;
+        }
+
+        this.body = "";
+        this.$router.push("/");
+      } catch (err) {
         console.error(err);
-      });
+      }
     }
   }
 };
@@ -56,27 +59,12 @@ form {
   width: 90%;
 }
 
-#text-input-rows {
+#body-input {
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
   margin-bottom: 1rem;
-  gap: 1rem;
-}
-
-.center {
-  margin: auto;
-  border: 0;
-  padding: 10px 20px;
-  margin-top: 20px;
-  width: 30%; 
-}
-
-.input-row {
-  display: flex;
-  align-items: center;
-  justify-content: right;
-  font-size: 1.5rem;
+  gap: 0.5rem;
 }
 
 .input-row > label, .input-row input {
@@ -94,11 +82,17 @@ input {
   padding: 0.25rem;
 }
 
+textarea {
+  width: auto;
+  border-radius: 0.5rem;
+  border: 1px solid #cccccc;
+  resize: vertical;
+  padding: 0.25rem;
+}
+
 p {
   white-space: pre-line;
   line-height: 1.5rem;
   margin-bottom: 0;
 }
-
 </style>
-

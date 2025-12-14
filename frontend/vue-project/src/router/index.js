@@ -4,6 +4,7 @@ import LoginView from '../views/LoginView.vue'
 import SignupView from '../views/SignupView.vue'
 import ContactView from '../views/ContactView.vue'
 import AddPostView from '../views/AddPostView.vue'
+import APostView from '../views/APostView.vue'
 import auth from '../auth'
 
 
@@ -13,6 +14,7 @@ const routes = [
     { path: '/signup', component: SignupView },
     { path: '/contacts', component: ContactView },
     { path: '/add', component: AddPostView, meta: { requiresAuth: true } },
+    { path: '/apost/:id', component: APostView, meta: { requiresAuth: true } },
 ]
 
 const router = createRouter({
