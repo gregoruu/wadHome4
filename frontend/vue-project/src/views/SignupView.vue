@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="view-container">
     <main class="post-container">
       <div class="post" id="login-container">
         <form @submit.prevent="passwordIsValid">
@@ -15,7 +15,7 @@
           </div>
           <!--<p class="error" v-if="!passwordIsValid() && password !== ''">The password is not valid:<br>{{ missingRequirementsText }}</p> -->
           <div class="buttons-container">
-          <button @click="SignUp">Signup</button>
+          <button class="morphButton"  @click="SignUp">Signup</button>
           </div>
         </form>
       </div>

@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header class="header morphContainer">
     <nav>
       <h1>
         <router-link to="/">Home</router-link>
@@ -20,12 +20,12 @@ export default {
 
 <style scoped>
 header {
-  min-width: 100%;
+  justify-content: center;
 }
 
-nav {
-    margin-top: 2%;
+nav, h1 {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 </style>

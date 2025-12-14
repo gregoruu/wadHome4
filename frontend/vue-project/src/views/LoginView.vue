@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="view-container">
     <main class="post-container">
       <div class="post" id="login-container">
         <form> <!-- @submit.prevent="passwordIsValid">-->
@@ -15,9 +15,9 @@
           </div>
           <!-- <p class="error" v-if="!passwordIsValid() && password !== ''">The password is not valid:<br>{{ missingRequirementsText }}</p> -->
           <div class="buttons-container">
-          <button type="button" @click="LogIn">Login</button>
+          <button type="button" class="morphButton" @click="LogIn">Login</button>
           <p class="center">Or</p>
-          <button type="button" @click='this.$router.push("/signup")'>Signup</button>
+          <button type="button" class="morphButton" @click='this.$router.push("/signup")'>Signup</button>
           </div>
         </form>
       </div>

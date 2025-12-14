@@ -1,12 +1,19 @@
 <template>
-  <Header />
-  <router-view />
+  <div class="app-container">
+    <Header />
+    <main class="app-content">
+      <router-view />
+    </main>
+    <Footer />
+  </div>
 </template>
 
 <script>
 import Header from './components/Header.vue';
+import Footer from "@/components/Footer.vue";
 export default {
   components: {
+    Footer,
     Header,
   }
 }
@@ -29,23 +36,22 @@ export default {
   font-family: "Chocolate Classical Sans", sans-serif;
 }
 
-.center {
-  margin: auto;
-  border: 0;
-  padding: 10px 20px;
-  margin-top: 20px;
-  width: 30%; 
-}
-
 .buttons-container {
   display: flex;
+  flex-direction: row;
+  gap: 2rem;
   justify-content: center;
-} 
+}
+
+.buttons-container > button {
+  padding: 0.5rem;
+  font-size: 1.5rem;
+}
 
 
 .view-container {
   display: flex;
-  min-height: 100vh;
+  min-height: auto;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -58,6 +64,19 @@ body {
   background: linear-gradient(to top, rgb(87, 50, 66) 0%, rgb(77, 105, 136) 100%) fixed;
 }
 
+/* App shell creates a sticky footer layout: header at top, footer at bottom, content fills the rest */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-content {
+  /* Let the main content take remaining space between header and footer */
+  flex: 1 0 auto;
+  width: 100%;
+}
+
 h1, h2, h3 {
   margin: 0;
 }
@@ -65,6 +84,7 @@ h1, h2, h3 {
 .morphContainer {
   display: flex;
   justify-content: space-between;
+  align-content: center;
   align-items: center;
   padding: 1rem;
   min-width: 200px;
@@ -90,6 +110,7 @@ nav h1 > a, .morphButton {
   text-decoration: none;
   text-align: center;
   padding: 0.5rem;
+  margin: 0;
   text-wrap: nowrap;
   transition: all 0.1s ease-in-out;
   border: 1px solid transparent;

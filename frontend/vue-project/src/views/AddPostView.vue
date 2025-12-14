@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="view-container">
     <main class="post-container">
       <div class="post" id="login-container">
         <h2>Add Post</h2>
