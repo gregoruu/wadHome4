@@ -106,13 +106,6 @@ export default {
   word-wrap: anywhere;
 }
 
-.post-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
 .post-date {
   color: #666;
   font-size: 0.9rem;
